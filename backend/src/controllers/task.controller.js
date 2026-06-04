@@ -43,6 +43,10 @@ const getTasks = asyncHandler(async (req, res) => {
 })
 
 const createTask = asyncHandler(async (req, res) => {
+  if (!req.body || Object.keys(req.body).length === 0) {
+    throw new ApiError(400, "Request body is required. Use Content-Type: application/json with raw JSON body")
+  }
+
   const { title, description } = req.body
 
   if (!title) {
@@ -64,7 +68,7 @@ const updateTask = asyncHandler(async (req, res) => {
   const { taskId } = req.params
 
   if (!mongoose.isValidObjectId(taskId)) {
-    throw new ApiError(400, "Invalid task ID")
+    throw new ApiError(400, `Invalid task ID: "${taskId}"`)
   }
 
   const task = await Task.findById(taskId)
@@ -74,6 +78,10 @@ const updateTask = asyncHandler(async (req, res) => {
 
   if (task.userId.toString() !== req.user._id.toString()) {
     throw new ApiError(403, "Forbidden")
+  }
+
+  if (!req.body || Object.keys(req.body).length === 0) {
+    throw new ApiError(400, "Request body is required. Use Content-Type: application/json with raw JSON body")
   }
 
   const allowedFields = ["title", "description", "status"]
@@ -98,7 +106,7 @@ const deleteTask = asyncHandler(async (req, res) => {
   const { taskId } = req.params
 
   if (!mongoose.isValidObjectId(taskId)) {
-    throw new ApiError(400, "Invalid task ID")
+    throw new ApiError(400, `Invalid task ID: "${taskId}"`)
   }
 
   const task = await Task.findById(taskId)
@@ -121,7 +129,7 @@ const toggleTaskStatus = asyncHandler(async (req, res) => {
   const { taskId } = req.params
 
   if (!mongoose.isValidObjectId(taskId)) {
-    throw new ApiError(400, "Invalid task ID")
+    throw new ApiError(400, `Invalid task ID: "${taskId}"`)
   }
 
   const task = await Task.findById(taskId)

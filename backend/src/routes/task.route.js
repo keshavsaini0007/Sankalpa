@@ -14,8 +14,8 @@ router.use(authMiddleware)
 
 router.get("/", getTasks)
 router.post("/", createTask)
+router.patch("/:taskId/toggle", toggleTaskStatus)
 router.patch("/:taskId", updateTask)
 router.delete("/:taskId", deleteTask)
-router.patch("/:taskId/toggle", toggleTaskStatus)
 
 module.exports = router

@@ -13,6 +13,10 @@ const generateToken = (user) => {
 }
 
 const registerUser = asyncHandler(async (req, res) => {
+  if (!req.body || Object.keys(req.body).length === 0) {
+    throw new ApiError(400, "Request body is required. Use Content-Type: application/json with raw JSON body")
+  }
+
   const { name, email, password } = req.body
 
   if (!name || !email || !password) {
@@ -47,6 +51,10 @@ const registerUser = asyncHandler(async (req, res) => {
 })
 
 const loginUser = asyncHandler(async (req, res) => {
+  if (!req.body || Object.keys(req.body).length === 0) {
+    throw new ApiError(400, "Request body is required. Use Content-Type: application/json with raw JSON body")
+  }
+
   const { email, password } = req.body
 
   if (!email || !password) {
