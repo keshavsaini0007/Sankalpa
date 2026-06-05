@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: sankalpa-backend-service
+    runtime: node
+    repo: https://github.com/keshavsaini0007/Sankalpa
+    branch: main
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run start
+    
