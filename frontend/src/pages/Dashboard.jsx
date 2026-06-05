@@ -12,9 +12,134 @@ import SkeletonTaskCard from '../components/SkeletonTaskCard'
 import { useTasks } from '../hooks/useTasks'
 import { useToast } from '../context/ToastContext'
 import { getErrorMessage } from '../utils/helpers'
+import { useShine } from '../hooks/useShine'
+
+/* ─── Canvas Particle Background ─── */
+const ParticleCanvas = () => {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext('2d')
+    let raf
+
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    const PARTICLE_COUNT = 60
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.4 + 0.3,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      alpha: Math.random() * 0.5 + 0.1,
+    }))
+
+    const CONN = 120
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      particles.forEach(p => {
+        p.x += p.vx
+        p.y += p.vy
+        if (p.x < 0) p.x = canvas.width
+        if (p.x > canvas.width) p.x = 0
+        if (p.y < 0) p.y = canvas.height
+        if (p.y > canvas.height) p.y = 0
+      })
+
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x
+          const dy = particles[i].y - particles[j].y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < CONN) {
+            ctx.beginPath()
+            ctx.strokeStyle = `rgba(99,102,241,${0.12 * (1 - dist / CONN)})`
+            ctx.lineWidth = 0.5
+            ctx.moveTo(particles[i].x, particles[i].y)
+            ctx.lineTo(particles[j].x, particles[j].y)
+            ctx.stroke()
+          }
+        }
+      }
+
+      particles.forEach(p => {
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(139,92,246,${p.alpha})`
+        ctx.fill()
+      })
+
+      raf = requestAnimationFrame(draw)
+    }
+
+    draw()
+
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none fixed inset-0 z-0"
+    />
+  )
+}
+
+/* ─── Animated Gradient Orbs ─── */
+const Orbs = () => (
+  <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+    <div
+      className="absolute -left-32 -top-32 h-[480px] w-[480px] rounded-full opacity-20"
+      style={{
+        background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)',
+        animation: 'orbDrift1 18s ease-in-out infinite alternate',
+      }}
+    />
+    <div
+      className="absolute -bottom-32 -right-32 h-[560px] w-[560px] rounded-full opacity-15"
+      style={{
+        background: 'radial-gradient(circle, #2563eb 0%, transparent 70%)',
+        animation: 'orbDrift2 22s ease-in-out infinite alternate',
+      }}
+    />
+    <div
+      className="absolute left-1/2 top-1/3 h-[320px] w-[320px] -translate-x-1/2 rounded-full opacity-10"
+      style={{
+        background: 'radial-gradient(circle, #a855f7 0%, transparent 70%)',
+        animation: 'orbDrift3 14s ease-in-out infinite alternate',
+      }}
+    />
+    <style>{`
+      @keyframes orbDrift1 {
+        from { transform: translate(0, 0) scale(1); }
+        to   { transform: translate(60px, 80px) scale(1.15); }
+      }
+      @keyframes orbDrift2 {
+        from { transform: translate(0, 0) scale(1); }
+        to   { transform: translate(-80px, -60px) scale(1.2); }
+      }
+      @keyframes orbDrift3 {
+        from { transform: translateX(-50%) translateY(0) scale(1); }
+        to   { transform: translateX(-50%) translateY(-40px) scale(1.1); }
+      }
+    `}</style>
+  </div>
+)
 
 /* ─── StatCard ─── */
 const StatCard = ({ icon: Icon, label, value, color, delay = 0 }) => {
+  const { shineStyle, handleMouseMove, handleMouseLeave } = useShine()
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
   const [display, setDisplay] = useState(0)
@@ -43,7 +168,12 @@ const StatCard = ({ icon: Icon, label, value, color, delay = 0 }) => {
         border: '1px solid rgba(255,255,255,0.07)',
         backdropFilter: 'blur(8px)',
       }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
+      {/* Shine reflection */}
+      <div style={shineStyle} />
+
       {/* Subtle corner glow */}
       <div
         style={{
@@ -200,10 +330,22 @@ const Dashboard = () => {
   const completedCount = tasks.filter(t => t.status === 'completed').length
 
   return (
-    <div className="min-h-screen" style={{ background: '#08070f' }}>
+    <div className="relative min-h-screen overflow-hidden" style={{ background: '#08070f' }}>
+      <ParticleCanvas />
+      <Orbs />
+
+      {/* Noise texture overlay */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: '180px',
+        }}
+      />
+
       <Navbar />
 
-      <main className="mx-auto max-w-6xl px-4 py-8">
+      <main className="relative z-10 mx-auto max-w-6xl px-4 py-8">
         {/* Stats */}
         <div className="mb-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <StatCard icon={ListTodo}     label="Total Tasks" value={total}          color="#7c3aed" delay={0}    />

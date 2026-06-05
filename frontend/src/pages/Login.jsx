@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import { getErrorMessage } from '../utils/helpers'
+import { useShine } from '../hooks/useShine'
 import { CheckSquare } from 'lucide-react'
 
 /* ─── Canvas Particle Background ─── */
@@ -212,6 +213,8 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
   const [focusedField, setFocusedField] = useState(null)
 
+  const { shineStyle, handleMouseMove, handleMouseLeave } = useShine()
+
   const {
     register,
     handleSubmit,
@@ -252,7 +255,12 @@ const Login = () => {
         <div
           className="relative overflow-hidden rounded-[13px] border border-white/[0.07] bg-white/[0.03] px-8 py-9 backdrop-blur-xl"
           style={{ boxShadow: '0 32px 64px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06)' }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
         >
+          {/* Shine reflection */}
+          <div style={shineStyle} />
+
           {/* Scanline sweep */}
           <div className="scanline" />
 

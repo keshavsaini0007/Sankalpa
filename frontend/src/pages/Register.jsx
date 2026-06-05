@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import { getErrorMessage } from '../utils/helpers'
+import { useShine } from '../hooks/useShine'
 import { CheckSquare } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 
@@ -178,6 +179,7 @@ const Field = ({ label, error, delay, children }) => (
 const Register = () => {
   const { register: registerUser } = useAuth()
   const { addToast } = useToast()
+  const { shineStyle, handleMouseMove, handleMouseLeave } = useShine()
   const [serverError, setServerError] = useState('')
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit, getValues, formState: { errors } } = useForm()
@@ -214,7 +216,12 @@ const Register = () => {
             backdropFilter: 'blur(20px)',
             boxShadow: '0 32px 64px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06)',
           }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
         >
+          {/* Shine reflection */}
+          <div style={shineStyle} />
+
           <div className="reg-scanline" />
 
           {/* Logo */}

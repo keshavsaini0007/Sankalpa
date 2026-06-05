@@ -3,8 +3,10 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Edit3, Trash2, CheckCircle, RotateCcw } from 'lucide-react'
 import { formatDate } from '../utils/helpers'
+import { useShine } from '../hooks/useShine'
 
 const TaskCard = ({ task, onEdit, onDelete, onToggle, index = 0 }) => {
+  const { shineStyle, handleMouseMove, handleMouseLeave } = useShine()
   const [confirmDelete, setConfirmDelete] = useState(false)
   const isDone = task.status === 'completed'
 
@@ -73,7 +75,12 @@ const TaskCard = ({ task, onEdit, onDelete, onToggle, index = 0 }) => {
           border: '1px solid rgba(255,255,255,0.07)',
           backdropFilter: 'blur(8px)',
         }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
       >
+        {/* Shine reflection */}
+        <div style={shineStyle} />
+
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0 flex-1">
             <h3
