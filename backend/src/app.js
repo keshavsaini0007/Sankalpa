@@ -9,7 +9,9 @@ const app = express()
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN
+      ? process.env.CORS_ORIGIN.split(",").map(s => s.trim())
+      : ["http://localhost:5173", "https://sankalpa-todo.vercel.app"],
     credentials: true,
   })
 )
