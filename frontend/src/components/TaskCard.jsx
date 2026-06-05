@@ -114,10 +114,9 @@ const TaskCard = ({ task, onEdit, onDelete, onToggle, index = 0 }) => {
               </span>
             </div>
           </div>
-        </div>
 
-        {/* Actions */}
-        <div className="absolute right-3 top-3 flex items-center gap-0.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+          {/* Actions */}
+          <div className="flex shrink-0 items-center gap-0.5 opacity-60 transition-opacity duration-200 group-hover:opacity-100">
           <button
             onClick={() => onToggle(task._id)}
             className="action-btn p-1.5"
@@ -176,6 +175,7 @@ const TaskCard = ({ task, onEdit, onDelete, onToggle, index = 0 }) => {
             )}
           </AnimatePresence>
         </div>
+      </div>
       </motion.div>
     </>
   )
