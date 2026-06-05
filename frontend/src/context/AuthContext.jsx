@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 import { useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 import { getErrorMessage } from '../utils/helpers'
+import { useToast } from './ToastContext'
 
 const AuthContext = createContext(null)
 
@@ -16,6 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate()
+  const { addToast } = useToast()
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token')
@@ -34,13 +36,15 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(userData))
     setToken(newToken)
     setUser(userData)
+    addToast('Signed in successfully', 'success')
     navigate('/dashboard')
-  }, [navigate])
+  }, [navigate, addToast])
 
   const register = useCallback(async (name, email, password) => {
     await api.post('/api/v1/users/register', { name, email, password })
+    addToast('Account created successfully', 'success')
     await login(email, password)
-  }, [login])
+  }, [login, addToast])
 
   const logout = useCallback(() => {
     localStorage.removeItem('token')
