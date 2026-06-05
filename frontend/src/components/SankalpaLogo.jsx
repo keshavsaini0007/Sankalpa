@@ -1,19 +1,18 @@
 const SankalpaLogo = () => {
   return (
     <div className="
-      group relative inline-flex items-center justify-center
+      group relative  inline-flex items-center justify-center
       cursor-pointer select-none
       transition-all duration-500 ease-out
       hover:scale-105
       hover:drop-shadow-[0_0_24px_rgba(120,80,255,0.6)]
-      pb-2
+      
     ">
 
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 40 100"
-        width="100"
-        height="40"
+        viewBox="0 0 320 120"
+        width="190" height="50"
         className="overflow-visible transition-all duration-500"
       >
         <defs>
@@ -162,7 +161,7 @@ const SankalpaLogo = () => {
         <g opacity="0">
           <animate attributeName="opacity" values="0;1" dur="0.8s" begin="0.4s" fill="freeze" />
           <text
-            x="194" y="80"
+            x="213" y="80"
             textAnchor="middle"
             fontFamily="'Noto Sans Devanagari','Mangal','Arial Unicode MS',serif"
             fontSize="65"

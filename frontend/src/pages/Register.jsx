@@ -10,6 +10,7 @@ import { getErrorMessage } from '../utils/helpers'
 import { useShine } from '../hooks/useShine'
 import { CheckSquare } from 'lucide-react'
 import { useEffect, useRef } from 'react'
+import SankalpaLogo from '../components/sankalpaLogo'
 
 /* ─── Reused canvas particles (same as Login) ─── */
 const ParticleCanvas = () => {
@@ -231,12 +232,7 @@ const Register = () => {
             transition={{ delay: 0.12, duration: 0.5 }}
             className="mb-7 flex items-center justify-center gap-2.5"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: 'rgba(124,58,237,0.18)', border: '1px solid rgba(124,58,237,0.35)' }}>
-              <CheckSquare className="h-5 w-5" style={{ color: '#a78bfa' }} />
-            </div>
-            <span className="text-2xl font-semibold text-white" style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.02em' }}>
-              Sankalpa
-            </span>
+            <SankalpaLogo />
           </motion.div>
 
           {/* Heading */}
@@ -244,7 +240,7 @@ const Register = () => {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.45 }}
-            className="mb-7"
+            className="mb-4"
           >
             <h1 className="text-xl font-semibold" style={{ color: 'rgba(255,255,255,0.9)' }}>Create account</h1>
             <p className="mt-1 text-sm" style={{ color: 'rgba(255,255,255,0.3)' }}>Start organising your tasks today</p>
@@ -318,17 +314,11 @@ const Register = () => {
                   ) : 'Create account'}
                 </span>
               </button>
-            </motion.div>
-          </form>
-        </div>
-      </div>
-
-      {/* Footer link */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.55 }}
-        className="absolute bottom-8 left-0 right-0 text-center text-sm"
+        className="absolute mt-1 left-0 right-0 text-center text-sm"
         style={{ color: 'rgba(255,255,255,0.28)' }}
       >
         Already have an account?{' '}
@@ -339,6 +329,12 @@ const Register = () => {
           Sign in
         </Link>
       </motion.p>
+            </motion.div>
+          </form>
+        </div>
+      </div>
+      {/* Footer link */}
+
     </div>
   )
 }

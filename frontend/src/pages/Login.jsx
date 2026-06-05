@@ -9,6 +9,7 @@ import { useToast } from '../context/ToastContext'
 import { getErrorMessage } from '../utils/helpers'
 import { useShine } from '../hooks/useShine'
 import { CheckSquare } from 'lucide-react'
+import SankalpaLogo from '../components/SankalpaLogo'
 
 /* ─── Canvas Particle Background ─── */
 const ParticleCanvas = () => {
@@ -271,7 +272,8 @@ const Login = () => {
             transition={{ delay: 0.15, duration: 0.5 }}
             className="mb-8 flex items-center justify-center gap-2.5"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-600/20 ring-1 ring-violet-500/40">
+            <SankalpaLogo/>
+            {/* <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-600/20 ring-1 ring-violet-500/40">
               <CheckSquare className="h-5 w-5 text-violet-400" />
             </div>
             <span
@@ -279,7 +281,7 @@ const Login = () => {
               style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: '-0.02em' }}
             >
               Sankalpa
-            </span>
+            </span> */}
           </motion.div>
 
           {/* Heading */}
