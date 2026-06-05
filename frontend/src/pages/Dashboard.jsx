@@ -100,21 +100,21 @@ const ParticleCanvas = () => {
 const Orbs = () => (
   <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
     <div
-      className="absolute -left-32 -top-32 h-[480px] w-[480px] rounded-full opacity-20"
+      className="absolute -left-32 -top-32 h-120 w-120 rounded-full opacity-20"
       style={{
         background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)',
         animation: 'orbDrift1 18s ease-in-out infinite alternate',
       }}
     />
     <div
-      className="absolute -bottom-32 -right-32 h-[560px] w-[560px] rounded-full opacity-15"
+      className="absolute -bottom-32 -right-32 h-140 w-140 rounded-full opacity-15"
       style={{
         background: 'radial-gradient(circle, #2563eb 0%, transparent 70%)',
         animation: 'orbDrift2 22s ease-in-out infinite alternate',
       }}
     />
     <div
-      className="absolute left-1/2 top-1/3 h-[320px] w-[320px] -translate-x-1/2 rounded-full opacity-10"
+      className="absolute left-1/2 top-1/3 h-180 w-180 -translate-x-1/2 rounded-full opacity-10"
       style={{
         background: 'radial-gradient(circle, #a855f7 0%, transparent 70%)',
         animation: 'orbDrift3 14s ease-in-out infinite alternate',

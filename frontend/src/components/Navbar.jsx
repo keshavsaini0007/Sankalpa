@@ -52,7 +52,7 @@ const Navbar = () => {
           <div className="flex items-center gap-4">
             {user?.name && (
               <div className="hidden items-center gap-2 sm:flex">
-                <div className="flex h-7 w-7 items-center justify-center rounded-[8px] text-xs font-semibold" style={{ background: 'rgba(124,58,237,0.2)', color: '#a78bfa', border: '1px solid rgba(124,58,237,0.3)' }}>
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg text-xs font-semibold" style={{ background: 'rgba(124,58,237,0.2)', color: '#a78bfa', border: '1px solid rgba(124,58,237,0.3)' }}>
                   {user.name.charAt(0).toUpperCase()}
                 </div>
                 <span className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>{user.name}</span>

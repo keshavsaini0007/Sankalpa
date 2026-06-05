@@ -35,7 +35,7 @@ const SkeletonTaskCard = () => (
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 space-y-2">
-          <div className="skel-line h-[18px] w-3/4" />
+          <div className="skel-line h-4.5 w-3/4" />
           <div className="skel-line h-3 w-full" />
           <div className="skel-line h-3 w-2/3" style={{ animationDelay: '0.1s' }} />
           <div className="mt-3 flex items-center gap-3">

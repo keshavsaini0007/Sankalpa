@@ -95,7 +95,7 @@ const TaskModal = ({ isOpen, onClose, onSubmit, task, isLoading }) => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 280 }}
-            className="fixed right-0 top-0 z-50 h-full w-full sm:max-w-[420px]"
+            className="fixed right-0 top-0 z-50 h-full w-full sm:max-w-150"
             style={{
               background: 'rgba(10,8,18,0.98)',
               borderLeft: '1px solid rgba(255,255,255,0.07)',

@@ -46,7 +46,7 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
           onClick={() => onPageChange(p)}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="min-w-[32px] rounded-lg px-2.5 py-2 text-xs font-semibold transition-all"
+          className="min-w-8 rounded-lg px-2.5 py-2 text-xs font-semibold transition-all"
           style={p === page
             ? {
                 background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
