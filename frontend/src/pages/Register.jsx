@@ -10,7 +10,7 @@ import { getErrorMessage } from '../utils/helpers'
 import { useShine } from '../hooks/useShine'
 import { CheckSquare } from 'lucide-react'
 import { useEffect, useRef } from 'react'
-import SankalpaLogo from '../components/sankalpaLogo'
+import SankalpaLogo from '../components/SankalpaLogo'
 
 /* ─── Reused canvas particles (same as Login) ─── */
 const ParticleCanvas = () => {
