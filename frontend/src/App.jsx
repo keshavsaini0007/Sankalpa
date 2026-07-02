@@ -7,6 +7,7 @@ import SquirrelLoader from './components/SquirrelLoader'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
+import Keshav from './pages/Keshav'
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(true)
@@ -34,6 +35,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="/keshav" element={<Keshav />} />
         </Routes>
       </div>
 
