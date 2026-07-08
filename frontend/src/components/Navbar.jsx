@@ -3,6 +3,7 @@
 import { useAuth } from '../context/AuthContext'
 import { LogOut, CheckSquare } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import SankalpaLogo from './SankalpaLogo'
 
 const Navbar = () => {
@@ -49,6 +50,15 @@ const Navbar = () => {
               <SankalpaLogo/>
           </div>
 
+          <div className="flex items-center gap-6">
+            <Link
+              to="/keshav"
+              className="text-sm font-medium transition-all hover:text-purple-400"
+              style={{ color: 'rgba(255,255,255,0.4)' }}
+            >
+              Keshav
+            </Link>
+
           <div className="flex items-center gap-4">
             {user?.name && (
               <div className="hidden items-center gap-2 sm:flex">
@@ -68,6 +78,7 @@ const Navbar = () => {
               <LogOut className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Logout</span>
             </motion.button>
+          </div>
           </div>
         </div>
       </motion.nav>
